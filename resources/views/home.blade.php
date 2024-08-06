@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-6 sm:px-8">
         <!-- Hero -->
-        <section id="hero" class="flex items-center justify-center min-h-dvh">
-            <div class="mx-auto my-auto max-w-3xl py-8 sm:py-16 lg:py-24">
+        <section id="hero" class="h-screen flex items-center justify-center">
+            <div class="mx-auto my-auto max-w-3xl pt-16 sm:pt-24 lg:pt-32 py-8 sm:py-16 lg:py-24">
                 <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div
                         class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 dark:ring-gray-500 dark:text-gray-400 hover:ring-gray-900/20 dark:hover:ring-gray-200/20">
