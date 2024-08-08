@@ -3,7 +3,7 @@
         <div class="p-4 md:ml-64 h-screen pt-20">
             <!-- Header -->
             <div
-                class="fixed top-20 left-0 right-0 sm:left-64 sm:right-0 mb-4 ml-0 sm:ml-6 mr-0 sm:mr-4 py-6 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm sm:rounded-lg w-full sm:w-auto">
+                class="absolute sm:fixed top-20 left-0 right-0 sm:left-64 sm:right-0 mb-4 ml-0 sm:ml-6 mr-0 sm:mr-4 py-6 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm sm:rounded-lg w-full sm:w-auto">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Dashboard') }}
                 </h2>
