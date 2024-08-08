@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="antialiased">
+    <div x-data="{ content: 'Overview' }" class="antialiased">
         <div class="p-4 md:ml-64 h-screen pt-20">
             <!-- Header -->
             <div
@@ -11,7 +11,7 @@
             <!-- Sidebar -->
             <x-sidebar>
                 <li>
-                    <a href="#"
+                    <a @click.prevent="content = 'Overview'"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg aria-hidden="true"
                             class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -22,10 +22,10 @@
                         <span class="ml-3">Overview</span>
                     </a>
                 </li>
-                <li>
-                    <button type="button"
+                <li x-data="{ open: false }">
+                    <button @click="open = !open" type="button"
                         class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+                        aria-controls="dropdown-pages">
                         <svg aria-hidden="true"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -41,17 +41,17 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
-                    <ul id="dropdown-pages" class="hidden py-2 space-y-2">
+                    <ul x-show="open" class="py-2 space-y-2">
                         <li>
-                            <a href="#"
+                            <a @click.prevent="content = 'Settings'"
                                 class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a @click.prevent="content = 'Kanban'"
                                 class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a @click.prevent="content = 'Calendar'"
                                 class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
                         </li>
                     </ul>
