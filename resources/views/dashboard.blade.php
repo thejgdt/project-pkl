@@ -1,13 +1,14 @@
 <x-app-layout>
     <div x-data="{ content: 'Overview' }" class="antialiased">
-        <div class="p-4 md:ml-64 h-screen pt-20">
-            <!-- Header -->
-            <div
-                class="absolute sm:fixed top-20 left-0 right-0 sm:left-64 sm:right-0 mb-4 ml-0 sm:ml-6 mr-0 sm:mr-4 py-6 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm sm:rounded-lg w-full sm:w-auto">
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Dashboard') }}
-                </h2>
-            </div>
+        <div class="p-4 md:ml-64 h-auto pt-20">
+            <x-slot name="header">
+                <div
+                    class="absolute sm:fixed top-20 left-0 right-0 sm:left-64 sm:right-0 mb-4 ml-0 sm:ml-6 mr-0 sm:mr-4 py-6 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm sm:rounded-lg w-full sm:w-auto">
+                    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        {{ __('Dashboard') }}
+                    </h2>
+                </div>
+            </x-slot>
 
             <!-- Sidebar -->
             <x-sidebar>
@@ -60,7 +61,7 @@
             </x-sidebar>
 
             <!-- Content -->
-            <div class="flex-1 p-4 h-full pt-24">
+            <div class="flex-1 p-4 h-full">
                 <template x-if="content === 'Overview'">
                     <div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
