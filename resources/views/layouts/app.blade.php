@@ -23,9 +23,7 @@
         <!-- Page Heading -->
         @isset($header)
             <x-header>
-                <div class="py-6 px-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    {{ $header }}
-                </div>
+                {{ $header }}
             </x-header>
         @endisset
 
