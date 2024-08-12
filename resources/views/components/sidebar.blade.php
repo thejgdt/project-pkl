@@ -1,9 +1,12 @@
-<aside
-    class="h-auto fixed top-0 left-0 bottom-0 w-64 mt-20 mb-6 rounded-xl mx-0 sm:mx-4 transition-transform -translate-x-full bg-white border border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidenav" id="drawer-navigation">
-    <div class="overflow-y-auto py-5 rounded-xl px-3 h-full bg-white dark:bg-gray-800">
-        <ul class="space-y-2">
-            {{ $slot }}
-        </ul>
+<aside id="sidebar"
+    class="fixed mx-4 top-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width"
+    aria-label="Sidebar" x-data="{ openCrud: false }">
+    <div class="flex flex-col flex-1 py-5 overflow-y-auto">
+        <div
+            class="flex-1 p-4 space-y-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+            <ul class="pb-2 space-y-2">
+                {{ $slot }}
+            </ul>
+        </div>
     </div>
 </aside>
