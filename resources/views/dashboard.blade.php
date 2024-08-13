@@ -47,7 +47,7 @@
             </li>
         </x-sidebar>
 
-        <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-[17rem] dark:bg-gray-900">
+        <div id="main-content" class="relative w-full h-full overflow-y-auto lg:ml-[17rem]">
             <div class="pt-5 flex flex-col">
                 <div
                     class="lg:fixed lg:left-[17rem] lg:right-0 border border-gray-300 dark:border-gray-600 p-4 mx-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 xl:p-8 dark:bg-gray-800">
@@ -61,7 +61,7 @@
                 <div class="flex-1 p-4 h-full">
                     <template x-if="content === 'Overview'">
                         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
-                            @foreach ($filteredTables as $table)
+                            @foreach ($tableData as $tableName => $total)
                                 <div
                                     class="flex flex-col justify-between h-full border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
                                     <div class="px-6 py-4 flex-grow">
@@ -69,11 +69,11 @@
                                             <div>
                                                 <!-- Title -->
                                                 <div class="font-bold text-xl text-gray-900 dark:text-gray-100">
-                                                    {{ $table }}
+                                                    {{ $tableName }}
                                                 </div>
                                                 <!-- Subtitle -->
                                                 <p class="text-gray-700 mb-4 dark:text-gray-400 text-base">
-                                                    {{ __('Jumlah data dalam tabel ' . $table) }}
+                                                    {{ __('Jumlah data dalam tabel ' . $tableName) }}
                                                 </p>
                                             </div>
                                             <h3 class="text-sky-400 font-bold text-xl">
