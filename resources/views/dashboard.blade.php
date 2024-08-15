@@ -1,9 +1,9 @@
 <x-app-layout>
-    <div x-data="{ content: 'Overview' }" class="flex pt-16 overflow-hidden bg-gray-100 dark:bg-gray-900">
+    <div x-data="{ content: 'Overview', openCrud: false }" class="flex pt-16 overflow-hidden bg-gray-100 dark:bg-gray-900">
 
         <x-sidebar>
             <li>
-                <button href="https://flowbite-admin-dashboard.vercel.app/"
+                <button @click="content = 'Overview'"
                     class="flex items-center w-full p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
                     <svg class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -36,11 +36,11 @@
                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
                     <li>
-                        <button href="https://flowbite-admin-dashboard.vercel.app/crud/products/"
+                        <button @click.prevent="content = 'Products'"
                             class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Products</button>
                     </li>
                     <li>
-                        <button href="https://flowbite-admin-dashboard.vercel.app/crud/users/"
+                        <button @click.prevent="content = 'Users'"
                             class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Users</button>
                     </li>
                 </ul>
@@ -59,37 +59,12 @@
             <!-- Content Wrapper -->
             <div class="flex-1 flex flex-col lg:mt-20 xl:mt-24">
                 <div class="flex-1 p-4 h-full">
-                    <template x-if="content === 'Overview'">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
-                            @foreach ($tableData as $tableName => $total)
-                                <div
-                                    class="flex flex-col justify-between h-full border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
-                                    <div class="px-6 py-4 flex-grow">
-                                        <div class="flex justify-between">
-                                            <div>
-                                                <!-- Title -->
-                                                <div class="font-bold text-xl text-gray-900 dark:text-gray-100">
-                                                    {{ $tableName }}
-                                                </div>
-                                                <!-- Subtitle -->
-                                                <p class="text-gray-700 mb-4 dark:text-gray-400 text-base">
-                                                    {{ __('Jumlah data dalam tabel ' . $tableName) }}
-                                                </p>
-                                            </div>
-                                            <h3 class="text-sky-400 font-bold text-xl">
-                                                {{ $total }}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <!-- Bottom Bar -->
-                                    <div class="px-6 py-4">
-                                        <x-primary-button
-                                            class="w-full justify-center">{{ __('VIEW TABLE') }}</x-primary-button>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </template>
+                    <x-template x-data x-if="content === 'Overview'"
+                        class="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+                        @foreach ($tableData as $tableName => $total)
+                            <x-overview :tableName="$tableName" :total="$total"></x-overview>
+                        @endforeach
+                    </x-template>
                 </div>
             </div>
         </div>
