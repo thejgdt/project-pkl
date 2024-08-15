@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-6 sm:px-8">
         <!-- Hero -->
-        <x-section>
+        <x-section class="flex items-center justify-center">
             <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div
                     class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 dark:ring-gray-500 dark:text-gray-400 hover:ring-gray-900/20 dark:hover:ring-gray-200/20">
