@@ -1,3 +1,5 @@
+@props(['tableName', 'total'])
+
 <div
     class="flex flex-col justify-between h-full border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
     <div class="px-6 py-4 flex-grow">
