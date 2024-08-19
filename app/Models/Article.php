@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'title',
+        'slug',
+        'body',
+        'teaser',
+        'meta_title',
+        'meta_description',
+    ];
 }
