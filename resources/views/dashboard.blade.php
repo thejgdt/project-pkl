@@ -65,48 +65,63 @@
                             <x-overview :tableName="$tableName" :total="$total"></x-overview>
                         @endforeach
                     </x-template>
-                    <x-template x-show="content === 'Products'" x-data>
+                    <x-template x-show="content === 'Articles'" x-data>
                         <div class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
-                            <x-table>
-                                <x-table.thead>
-                                    <tr>
-                                        <x-table.th scope="col">
-                                            #
-                                        </x-table.th>
-                                        <x-table.th>
-                                            Name
-                                        </x-table.th>
-                                        <x-table.th>
-                                            Email
-                                        </x-table.th>
-                                        <x-table.th>
-                                            Created at
-                                        </x-table.th>
-                                        <x-table.th>
-                                            Updated at
-                                        </x-table.th>
-                                    </tr>
-                                </x-table.thead>
-                                <tbody>
-                                    <x-table.tr>
-                                        <x-table.th scope="row">
-                                            1
-                                        </x-table.th>
-                                        <x-table.th class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Johny Hunter Sr.
-                                            </x-table.thth>
-                                            <x-table.th>
-                                                johnysr@hunter.com
+                            @foreach ($articles as $article)
+                                <x-table>
+                                    <x-table.thead>
+                                        <tr>
+                                            <x-table.th scope="col">
+                                                #
                                             </x-table.th>
                                             <x-table.th>
-                                                31 Jul 2024
+                                                Title
                                             </x-table.th>
                                             <x-table.th>
-                                                31 Jul 2024
+                                                Teaser
                                             </x-table.th>
-                                    </x-table.tr>
-                                </tbody>
-                            </x-table>
+                                            <x-table.th>
+                                                Meta title
+                                            </x-table.th>
+                                            <x-table.th>
+                                                Meta desc.
+                                            </x-table.th>
+                                            <x-table.th>
+                                                Created at
+                                            </x-table.th>
+                                            <x-table.th>
+                                                Updated at
+                                            </x-table.th>
+                                        </tr>
+                                    </x-table.thead>
+                                    <tbody>
+                                        <x-table.tr>
+                                            <x-table.th scope="row">
+                                                {{ $loop->iteration }}
+                                            </x-table.th>
+                                            <x-table.th
+                                                class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $article->title }}
+                                                </x-table.thth>
+                                                <x-table.th>
+                                                    {{ $article->teaser }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $article->meta_title }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $article->meta_description }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $article->created_at->Format('d M Y') }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $article->updated_at->Format('d M Y') }}
+                                                </x-table.th>
+                                        </x-table.tr>
+                                    </tbody>
+                                </x-table>
+                            @endforeach
                         </div>
                     </x-template>
                     <x-template x-show="content === 'Users'" x-data>

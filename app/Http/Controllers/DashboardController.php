@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -26,10 +27,13 @@ class DashboardController extends Controller
             $tableData[$capitalizedTable] = $totalRecords;
         }
 
+        $articles = Models\Article::query()->get();
+
         return view(
             'dashboard',
             [
                 'tableData' => $tableData,
+                'articles' => $articles,
             ]
         );
     }
