@@ -59,11 +59,99 @@
             <!-- Content Wrapper -->
             <div class="flex-1 flex flex-col lg:mt-20 xl:mt-24">
                 <div class="flex-1 p-4 h-full">
-                    <x-template x-data x-if="content === 'Overview'"
+                    <x-template x-show="content === 'Overview'" x-data
                         class="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
                         @foreach ($tableData as $tableName => $total)
                             <x-overview :tableName="$tableName" :total="$total"></x-overview>
                         @endforeach
+                    </x-template>
+                    <x-template x-show="content === 'Products'" x-data>
+                        <div class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
+                            <x-table>
+                                <x-table.thead>
+                                    <tr>
+                                        <x-table.th scope="col">
+                                            #
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Name
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Email
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Created at
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Updated at
+                                        </x-table.th>
+                                    </tr>
+                                </x-table.thead>
+                                <tbody>
+                                    <x-table.tr>
+                                        <x-table.th scope="row">
+                                            1
+                                        </x-table.th>
+                                        <x-table.th class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            Johny Hunter Sr.
+                                            </x-table.thth>
+                                            <x-table.th>
+                                                johnysr@hunter.com
+                                            </x-table.th>
+                                            <x-table.th>
+                                                31 Jul 2024
+                                            </x-table.th>
+                                            <x-table.th>
+                                                31 Jul 2024
+                                            </x-table.th>
+                                    </x-table.tr>
+                                </tbody>
+                            </x-table>
+                        </div>
+                    </x-template>
+                    <x-template x-show="content === 'Users'" x-data>
+                        <div class="border relative overflow-x-auto sm:rounded-lg">
+                            <x-table>
+                                <x-table.thead>
+                                    <tr>
+                                        <x-table.th scope="col">
+                                            #
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Name
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Email
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Created at
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Updated at
+                                        </x-table.th>
+                                    </tr>
+                                </x-table.thead>
+                                <tbody>
+                                    <x-table.tr>
+                                        <x-table.th scope="row">
+                                            2
+                                        </x-table.th>
+                                        <x-table.th class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            Johny Hunter Jr.
+                                            </x-table.thth>
+                                            <x-table.th>
+                                                johnyjr@hunter.com
+                                            </x-table.th>
+                                            <x-table.th>
+                                                1 Aug 2024
+                                            </x-table.th>
+                                            <x-table.th>
+                                                1 Aug 2024
+                                            </x-table.th>
+                                    </x-table.tr>
+                                </tbody>
+                            </x-table>
+                        </div>
                     </x-template>
                 </div>
             </div>

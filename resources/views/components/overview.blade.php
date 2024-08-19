@@ -21,6 +21,6 @@
     </div>
     <!-- Bottom Bar -->
     <div class="px-6 py-4">
-        <x-primary-button class="w-full justify-center">{{ __('VIEW TABLE') }}</x-primary-button>
+        <x-primary-button @click.prevent="content = 'Users'" class="w-full justify-center">{{ __('VIEW TABLE') }}</x-primary-button>
     </div>
 </div>
