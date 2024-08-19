@@ -28,12 +28,14 @@ class DashboardController extends Controller
         }
 
         $articles = Models\Article::query()->get();
+        $users = Models\User::query()->get();
 
         return view(
             'dashboard',
             [
                 'tableData' => $tableData,
                 'articles' => $articles,
+                'users' => $users,
             ]
         );
     }

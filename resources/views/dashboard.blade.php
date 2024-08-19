@@ -36,8 +36,8 @@
                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
                     <li>
-                        <button @click.prevent="content = 'Products'"
-                            class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Products</button>
+                        <button @click.prevent="content = 'Articles'"
+                            class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Articles</button>
                     </li>
                     <li>
                         <button @click.prevent="content = 'Users'"
@@ -67,34 +67,34 @@
                     </x-template>
                     <x-template x-show="content === 'Articles'" x-data>
                         <div class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
-                            @foreach ($articles as $article)
-                                <x-table>
-                                    <x-table.thead>
-                                        <tr>
-                                            <x-table.th scope="col">
-                                                #
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Title
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Teaser
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Meta title
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Meta desc.
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Created at
-                                            </x-table.th>
-                                            <x-table.th>
-                                                Updated at
-                                            </x-table.th>
-                                        </tr>
-                                    </x-table.thead>
-                                    <tbody>
+                            <x-table>
+                                <x-table.thead>
+                                    <tr>
+                                        <x-table.th scope="col">
+                                            #
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Title
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Teaser
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Meta title
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Meta desc.
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Created at
+                                        </x-table.th>
+                                        <x-table.th>
+                                            Updated at
+                                        </x-table.th>
+                                    </tr>
+                                </x-table.thead>
+                                <tbody>
+                                    @foreach ($articles as $article)
                                         <x-table.tr>
                                             <x-table.th scope="row">
                                                 {{ $loop->iteration }}
@@ -119,13 +119,13 @@
                                                     {{ $article->updated_at->Format('d M Y') }}
                                                 </x-table.th>
                                         </x-table.tr>
-                                    </tbody>
-                                </x-table>
-                            @endforeach
+                                    @endforeach
+                                </tbody>
+                            </x-table>
                         </div>
                     </x-template>
                     <x-template x-show="content === 'Users'" x-data>
-                        <div class="border relative overflow-x-auto sm:rounded-lg">
+                        <div class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
                             <x-table>
                                 <x-table.thead>
                                     <tr>
@@ -147,23 +147,26 @@
                                     </tr>
                                 </x-table.thead>
                                 <tbody>
-                                    <x-table.tr>
-                                        <x-table.th scope="row">
-                                            2
-                                        </x-table.th>
-                                        <x-table.th class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Johny Hunter Jr.
-                                            </x-table.thth>
-                                            <x-table.th>
-                                                johnyjr@hunter.com
+                                    @foreach ($users as $user)
+                                        <x-table.tr>
+                                            <x-table.th scope="row">
+                                                {{ $loop->iteration }}
                                             </x-table.th>
-                                            <x-table.th>
-                                                1 Aug 2024
-                                            </x-table.th>
-                                            <x-table.th>
-                                                1 Aug 2024
-                                            </x-table.th>
-                                    </x-table.tr>
+                                            <x-table.th
+                                                class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $user->name }}
+                                                </x-table.thth>
+                                                <x-table.th>
+                                                    {{ $user->email }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $user->created_at->Format('d M Y') }}
+                                                </x-table.th>
+                                                <x-table.th>
+                                                    {{ $user->updated_at->Format('d M Y') }}
+                                                </x-table.th>
+                                        </x-table.tr>
+                                    @endforeach
                                 </tbody>
                             </x-table>
                         </div>
