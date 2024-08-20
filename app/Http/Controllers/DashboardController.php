@@ -33,6 +33,7 @@ class DashboardController extends Controller
         return view(
             'dashboard',
             [
+                'filteredTables' => $filteredTables,
                 'tableData' => $tableData,
                 'articles' => $articles,
                 'users' => $users,
