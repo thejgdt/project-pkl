@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -30,13 +29,24 @@ class DashboardController extends Controller
         $articles = Models\Article::query()->get();
         $users = Models\User::query()->get();
 
+        $columns = [
+            'Articles' => ['#', 'Title', 'Author', 'Created at', 'Updated at'],
+            'Users' => ['#', 'Name', 'Email', 'Created at', 'Updated at'],
+        ];
+
+        $rows = [
+            'Articles' => $articles,
+            'Users' => $users,
+        ];
+
         return view(
             'dashboard',
             [
                 'filteredTables' => $filteredTables,
                 'tableData' => $tableData,
-                'articles' => $articles,
-                'users' => $users,
+                'capitalizedTable' => $capitalizedTable,
+                'columns' => $columns,
+                'rows' => $rows,
             ]
         );
     }
