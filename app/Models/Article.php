@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $fillable = [
+        'author',
+        'thumbnail',
         'title',
         'slug',
         'body',
