@@ -26,7 +26,7 @@
                 <!-- Content -->
                 <div class="mt-4">
                     <x-input-label for="body" :value="__('Content')" />
-                    <x-input-area :article="$article" id="body" rows="4" class="block mt-1 w-full"
+                    <x-input-area id="body" :value="old('body', $article->body)" rows="4" class="block mt-1 w-full"
                         name="body" placeholder="Article content" required />
                     <x-input-error :messages="$errors->get('body')" class="mt-2" />
                 </div>
