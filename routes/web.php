@@ -15,6 +15,14 @@ Route::get('/blog/{article}/edit', [Controllers\ArticleController::class, 'edit'
 Route::put('/blog/{article}', [Controllers\ArticleController::class, 'update'])->middleware(['auth', 'verified'])->name('blog.update');
 Route::delete('/blog/{article}', [Controllers\ArticleController::class, 'destroy'])->middleware(['auth', 'verified'])->name('blog.destroy');
 
+Route::get('/users', [Controllers\UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
+Route::get('/users/create', [Controllers\UserController::class, 'create'])->middleware(['auth', 'verified'])->name('users.create');
+Route::post('/users', [Controllers\UserController::class, 'store'])->middleware(['auth', 'verified'])->name('users.store');
+Route::get('/users/{user}', [Controllers\UserController::class, 'show'])->name('users.show');
+Route::get('/users/{user}/edit', [Controllers\UserController::class, 'edit'])->middleware(['auth', 'verified'])->name('users.edit');
+Route::put('/users/{user}', [Controllers\ArticleController::class, 'update'])->middleware(['auth', 'verified'])->name('users.update');
+Route::delete('/users/{user}', [Controllers\UserController::class, 'destroy'])->middleware(['auth', 'verified'])->name('users.destroy');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');
