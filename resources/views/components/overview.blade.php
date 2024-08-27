@@ -21,7 +21,8 @@
     </div>
     <!-- Bottom Bar -->
     <div class="px-6 py-4">
-        <x-primary-button @click.prevent="content = {{ json_encode($tableName) }}" class="w-full justify-center">
+        <x-primary-button @click.prevent="window.location.href='/dashboard?activeTable={{ $tableName }}'"
+            class="w-full justify-center">
             {{ __('VIEW TABLE') }}
         </x-primary-button>
     </div>

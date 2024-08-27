@@ -4,16 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $tables = DB::select('SHOW TABLES');
-
         $tableNames = array_map('current', $tables);
 
-        $excludedTables = ['cache', 'cache_locks', 'failed_jobs', 'jobs', 'job_batches', 'migrations', 'password_reset_tokens', 'sessions'];
+        $excludedTables = [
+            'cache',
+            'cache_locks',
+            'failed_jobs',
+            'jobs',
+            'job_batches',
+            'migrations',
+            'password_reset_tokens',
+            'sessions'
+        ];
 
         $filteredTables = array_filter($tableNames, function ($table) use ($excludedTables) {
             return !in_array($table, $excludedTables);
@@ -26,28 +35,51 @@ class DashboardController extends Controller
             $tableData[$capitalizedTable] = $totalRecords;
         }
 
-        $articles = Models\Article::query()->get();
-        $users = Models\User::query()->get();
+        $articles = Models\Article::all();
+        $users = Models\User::all();
 
         $columns = [
-            'Articles' => ['#', 'Title', 'Author', 'Created at', 'Updated at'],
-            'Users' => ['#', 'Name', 'Email', 'Created at', 'Updated at'],
+            'Articles' => ['#', 'Title', 'Author', 'Created at', 'Updated at', 'Action'],
+            'Users' => ['#', 'Name', 'Email', 'Created at', 'Updated at', 'Action'],
         ];
 
         $rows = [
-            'Articles' => $articles,
-            'Users' => $users,
+            'Articles' => $articles->map(function ($article) {
+                return [
+                    'id' => $article->id,
+                    'title' => $article->title,
+                    'author' => $article->author,
+                    'created_at' => $article->created_at->format('M d, Y'),
+                    'updated_at' => $article->updated_at->format('M d, Y'),
+                    'action' => [
+                        'edit' => route('blog.edit', $article->id),
+                        'delete' => route('blog.destroy', $article->id),
+                    ]
+                ];
+            }),
+            'Users' => $users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at->format('M d, Y'),
+                    'updated_at' => $user->updated_at->format('M d, Y'),
+                    'action' => [
+                        'edit' => route('users.edit', $user->id),
+                        'delete' => route('users.destroy', $user->id),
+                    ]
+                ];
+            }),
         ];
 
-        return view(
-            'dashboard',
-            [
-                'filteredTables' => $filteredTables,
-                'tableData' => $tableData,
-                'capitalizedTable' => $capitalizedTable,
-                'columns' => $columns,
-                'rows' => $rows,
-            ]
-        );
+        $activeTable = $request->query('activeTable', 'Overview');
+
+        $createUrl = match ($activeTable) {
+            'Users' => route('users.create'),
+            'Articles' => route('blog.create'),
+            default => '#',
+        };
+
+        return view('dashboard', compact('filteredTables', 'tableData', 'activeTable', 'createUrl', 'columns', 'rows'));
     }
 }
