@@ -19,12 +19,8 @@ Route::get('/blog/{article:slug}', [Controllers\ArticleController::class, 'show'
 
 // User
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('users', Controllers\UserController::class)
-        ->except(['index', 'show']);
+    Route::resource('users', Controllers\UserController::class);
 });
-
-Route::get('/users', [Controllers\UserController::class, 'index'])->name('users');
-Route::get('/users/{user}', [Controllers\UserController::class, 'show'])->name('users.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
