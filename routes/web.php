@@ -9,7 +9,9 @@ Route::get('/dashboard', [Controllers\DashboardController::class, 'index'])->mid
 
 // Blog
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('blog', Controllers\ArticleController::class)->except(['index', 'show']);
+    Route::resource('blog', Controllers\ArticleController::class)
+        ->parameters(['blog' => 'article'])
+        ->except(['index', 'show']);
 });
 
 Route::get('/blog', [Controllers\ArticleController::class, 'index'])->name('blog');
