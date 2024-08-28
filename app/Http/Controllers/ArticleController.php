@@ -74,6 +74,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return redirect()->route('blog', ['activeTable' => 'Articles'])->with('success', 'Article deleted successfully.');
+        return redirect()->route('dashboard', ['activeTable' => 'Articles'])->with('success', 'Article deleted successfully.');
     }
 }
