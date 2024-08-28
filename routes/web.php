@@ -19,7 +19,10 @@ Route::get('/blog/{article:slug}', [Controllers\ArticleController::class, 'show'
 
 // User
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('users', Controllers\UserController::class);
+    Route::resource('users', Controllers\UserController::class)
+        ->names([
+            'index' => 'users',
+        ]);
 });
 
 Route::middleware('auth')->group(function () {

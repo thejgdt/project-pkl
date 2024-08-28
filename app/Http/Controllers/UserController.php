@@ -8,13 +8,6 @@ use App\Http\Controllers\DashboardController;
 
 class UserController extends Controller
 {
-    protected $dashboardController;
-
-    public function __construct(DashboardController $dashboardController)
-    {
-        $this->dashboardController = $dashboardController;
-    }
-
     /**
      * Display all existing resource.
      */
