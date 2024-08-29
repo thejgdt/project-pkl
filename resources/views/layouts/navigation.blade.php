@@ -19,9 +19,11 @@
                         {{ __('Blog') }}
                     </x-nav-link>
                     @auth
-                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                            {{ __('User') }}
-                        </x-nav-link>
+                        @if (Auth::user()->role === 'admin')
+                            <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                                {{ __('User') }}
+                            </x-nav-link>
+                        @endif
                     @endauth
                 </div>
             </div>
@@ -124,9 +126,11 @@
                 {{ __('Blog') }}
             </x-responsive-nav-link>
             @auth
-                <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                    {{ __('User') }}
-                </x-responsive-nav-link>
+                @if (Auth::user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('User') }}
+                    </x-responsive-nav-link>
+                @endif
             @endauth
         </div>
 

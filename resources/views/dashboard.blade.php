@@ -4,12 +4,14 @@
     <div x-data="{ content: '{{ $activeTable }}', openCrud: false }" class="flex pt-16 overflow-hidden bg-gray-100 dark:bg-gray-900">
         <x-sidebar :filteredTables="$filteredTables" :activeTable="$activeTable">
             @foreach ($filteredTables as $table)
-                <li>
-                    <a href="{{ route('dashboard', ['activeTable' => ucwords(str_replace('_', ' ', $table))]) }}"
-                        class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">
-                        {{ ucwords(str_replace('_', ' ', $table)) }}
-                    </a>
-                </li>
+                @if (Auth::user()->role === 'admin' || $table !== 'users')
+                    <li>
+                        <a href="{{ route('dashboard', ['activeTable' => ucwords(str_replace('_', ' ', $table))]) }}"
+                            class="text-base text-gray-900 rounded-lg flex items-center w-full p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">
+                            {{ ucwords(str_replace('_', ' ', $table)) }}
+                        </a>
+                    </li>
+                @endif
             @endforeach
         </x-sidebar>
 
@@ -34,52 +36,56 @@
                     <x-template x-show="content === 'Overview'"
                         class="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
                         @foreach ($tableData as $tableName => $total)
-                            <x-overview :tableName="$tableName" :total="$total"></x-overview>
+                            @if (Auth::user()->role === 'admin' || $tableName !== 'Users')
+                                <x-overview :tableName="$tableName" :total="$total"></x-overview>
+                            @endif
                         @endforeach
                     </x-template>
                     @foreach ($columns as $contentType => $columnNames)
-                        <x-template x-show="content === '{{ $contentType }}'">
-                            <div
-                                class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
-                                <x-table>
-                                    <x-table.thead>
-                                        <tr>
-                                            @foreach ($columnNames as $column)
-                                                <x-table.th scope="col">{{ $column }}</x-table.th>
+                        @if (Auth::user()->role === 'admin' || $contentType !== 'Users')
+                            <x-template x-show="content === '{{ $contentType }}'">
+                                <div
+                                    class="border border-gray-300 dark:border-gray-600 relative overflow-x-auto sm:rounded-lg">
+                                    <x-table>
+                                        <x-table.thead>
+                                            <tr>
+                                                @foreach ($columnNames as $column)
+                                                    <x-table.th scope="col">{{ $column }}</x-table.th>
+                                                @endforeach
+                                            </tr>
+                                        </x-table.thead>
+                                        <tbody>
+                                            @foreach ($rows[$contentType] as $item)
+                                                <x-table.tr>
+                                                    <x-table.th scope="row">{{ $loop->iteration }}</x-table.th>
+                                                    <x-table.th
+                                                        class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $item['title'] ?? $item['name'] }}
+                                                    </x-table.th>
+                                                    <x-table.th>{{ $item['author'] ?? $item['email'] }}</x-table.th>
+                                                    <x-table.th>{{ $item['created_at'] }}</x-table.th>
+                                                    <x-table.th>{{ $item['updated_at'] }}</x-table.th>
+                                                    <x-table.th class="space-y-0.5">
+                                                        <x-primary-button as="a"
+                                                            href="{{ $item['action']['edit'] }}">
+                                                            {{ __('Edit') }}
+                                                        </x-primary-button>
+                                                        <form action="{{ $item['action']['delete'] }}" method="POST"
+                                                            onsubmit="return confirm('{{ __('Are you sure you want to delete this item?') }}');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <x-danger-button>
+                                                                {{ __('Delete') }}
+                                                            </x-danger-button>
+                                                        </form>
+                                                    </x-table.th>
+                                                </x-table.tr>
                                             @endforeach
-                                        </tr>
-                                    </x-table.thead>
-                                    <tbody>
-                                        @foreach ($rows[$contentType] as $item)
-                                            <x-table.tr>
-                                                <x-table.th scope="row">{{ $loop->iteration }}</x-table.th>
-                                                <x-table.th
-                                                    class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {{ $item['title'] ?? $item['name'] }}
-                                                </x-table.th>
-                                                <x-table.th>{{ $item['author'] ?? $item['email'] }}</x-table.th>
-                                                <x-table.th>{{ $item['created_at'] }}</x-table.th>
-                                                <x-table.th>{{ $item['updated_at'] }}</x-table.th>
-                                                <x-table.th class="space-y-0.5">
-                                                    <x-primary-button as="a"
-                                                        href="{{ $item['action']['edit'] }}">
-                                                        {{ __('Edit') }}
-                                                    </x-primary-button>
-                                                    <form action="{{ $item['action']['delete'] }}" method="POST"
-                                                        onsubmit="return confirm('{{ __('Are you sure you want to delete this item?') }}');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <x-danger-button>
-                                                            {{ __('Delete') }}
-                                                        </x-danger-button>
-                                                    </form>
-                                                </x-table.th>
-                                            </x-table.tr>
-                                        @endforeach
-                                    </tbody>
-                                </x-table>
-                            </div>
-                        </x-template>
+                                        </tbody>
+                                    </x-table>
+                                </div>
+                            </x-template>
+                        @endif
                     @endforeach
                 </div>
             </div>

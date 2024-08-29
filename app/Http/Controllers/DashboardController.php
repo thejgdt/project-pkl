@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            $articles = Models\Article::all();
+            $users = Models\User::all();
+        } else {
+            $articles = Models\Article::where('author', $user->name)->get();
+            $users = Models\User::where('id', $user->id)->get();
+        }
+
         $tables = DB::select('SHOW TABLES');
         $tableNames = array_map('current', $tables);
 
@@ -34,9 +45,6 @@ class DashboardController extends Controller
             $totalRecords = DB::table($table)->count();
             $tableData[$capitalizedTable] = $totalRecords;
         }
-
-        $articles = Models\Article::all();
-        $users = Models\User::all();
 
         $columns = [
             'Articles' => ['#', 'Title', 'Author', 'Created at', 'Updated at', 'Action'],

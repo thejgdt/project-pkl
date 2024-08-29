@@ -14,8 +14,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
-        // Mengatur activeTable ke 'Users' dan mengarahkan ke dashboard
         return view('users.index', compact('users'));
     }
 
@@ -41,7 +39,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         User::create($request->validated());
-
         return redirect('users');
     }
 
@@ -50,7 +47,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $articles = $user->articles;
+        return view('users.show', compact('user', 'articles'));
     }
 
     /**
@@ -74,7 +72,6 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->validated());
-
         return redirect('users');
     }
 

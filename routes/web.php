@@ -8,7 +8,7 @@ Route::get('/', Controllers\HomeController::class)->name('home');
 Route::get('/dashboard', [Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Blog
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:member'])->group(function () {
     Route::resource('blog', Controllers\ArticleController::class)
         ->parameters(['blog' => 'article'])
         ->except(['index', 'show']);
@@ -18,12 +18,17 @@ Route::get('/blog', [Controllers\ArticleController::class, 'index'])->name('blog
 Route::get('/blog/{article:slug}', [Controllers\ArticleController::class, 'show'])->name('blog.show');
 
 // User
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('users', Controllers\UserController::class)
         ->names([
             'index' => 'users',
         ]);
 });
+
+// Unauthorized
+Route::get('/unauthorized', function () {
+    abort(403);
+})->name('unauthorized');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');

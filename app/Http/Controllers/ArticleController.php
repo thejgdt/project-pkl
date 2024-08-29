@@ -11,7 +11,13 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $query = Article::query();
+
+        if ($author = request('author')) {
+            $query->where('author', $author);
+        }
+
+        $articles = $query->get();
         return view('articles.index', compact('articles'));
     }
 
