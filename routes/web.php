@@ -8,10 +8,12 @@ Route::get('/', Controllers\HomeController::class)->name('home');
 Route::get('/dashboard', [Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Blog
-Route::middleware(['auth', 'verified', 'role:member'])->group(function () {
-    Route::resource('blog', Controllers\ArticleController::class)
-        ->parameters(['blog' => 'article'])
-        ->except(['index', 'show']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::middleware('role:admin,member')->group(function () {
+        Route::resource('blog', Controllers\ArticleController::class)
+            ->parameters(['blog' => 'article'])
+            ->except(['index', 'show']);
+    });
 });
 
 Route::get('/blog', [Controllers\ArticleController::class, 'index'])->name('blog');
