@@ -32,6 +32,10 @@ Route::get('/unauthorized', function () {
     abort(403);
 })->name('unauthorized');
 
+// Like & Unlike
+Route::post('articles/{article}/like', [Controllers\LikeController::class, 'likeArticle'])->name('articles.like');
+Route::delete('articles/{article}/unlike', [Controllers\LikeController::class, 'unlikeArticle'])->name('articles.unlike');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Controllers\ProfileController::class, 'update'])->name('profile.update');

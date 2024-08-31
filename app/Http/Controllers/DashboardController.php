@@ -32,7 +32,8 @@ class DashboardController extends Controller
             'job_batches',
             'migrations',
             'password_reset_tokens',
-            'sessions'
+            'sessions',
+            'likes',
         ];
 
         $filteredTables = array_filter($tableNames, function ($table) use ($excludedTables) {

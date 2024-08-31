@@ -17,7 +17,7 @@ class ArticleController extends Controller
             $query->where('author', $author);
         }
 
-        $articles = $query->get();
+        $articles = $query->withCount('likes')->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -49,7 +49,12 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $currentArticle = $article->slug;
+        $randomArticles = $article->where('slug', '!=', $currentArticle)
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+        return view('articles.show', compact('article', 'randomArticles', 'currentArticle'));
     }
 
     public function edit(Article $article)
